@@ -20,8 +20,10 @@ import sk.fiit.peweproxy.plugins.services.ResponseServiceModule;
 import sk.fiit.peweproxy.plugins.services.ResponseServiceProvider;
 import sk.fiit.peweproxy.services.ProxyService;
 import sk.fiit.peweproxy.services.ServiceUnavailableException;
+import sk.fiit.peweproxy.services.content.ModifiableStringService;
 import sk.fiit.peweproxy.services.content.StringContentService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomBuilderService;
+
 
 public class HtmlDomBuilderModule implements ResponseServiceModule {
 	
@@ -31,12 +33,12 @@ public class HtmlDomBuilderModule implements ResponseServiceModule {
 			implements HtmlDomBuilderService, ResponseServiceProvider<HtmlDomBuilderProvider> {
 
 		private String content;
+		private Document document;
 		
 		public HtmlDomBuilderProvider(String content) {
 			this.content = content;
 		}
 		
-		@Override
 		public Document getHTMLDom() {
 			Document document = null;
 
@@ -54,10 +56,10 @@ public class HtmlDomBuilderModule implements ResponseServiceModule {
 	        } catch (IOException e) {
 	            logger.error("Html parser IO exception.", e);
 	        } 
+	        
 			return document;
 		}
-
-
+		
 		@Override
 		public String getServiceIdentification() {
 			return this.getClass().getName();
@@ -70,14 +72,26 @@ public class HtmlDomBuilderModule implements ResponseServiceModule {
 
 		@Override
 		public boolean initChangedModel() {
-			return false;
+			return true;
+		}
+
+		public void setHTMLDom(Document document) {
+			this.document = document;
 		}
 
 		@Override
 		public void doChanges(ModifiableHttpResponse response) {
-			// this service makes no modifications
+			StringBuilder content = response.getServicesHandle().getService(ModifiableStringService.class).getModifiableContent();
+			if(document != null) {
+	    		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+	            String modifiedContent = outputter.outputString(document);
+				if(modifiedContent != null) {
+					if(content != null) {
+						content.replace(0, content.length(), modifiedContent);
+					}
+				}
+			}
 		}
-
 	}
 
 	@Override
@@ -114,8 +128,10 @@ public class HtmlDomBuilderModule implements ResponseServiceModule {
 			throws ServiceUnavailableException {
 		
 		if(serviceClass.equals(HtmlDomBuilderService.class)) {
-			String content = response.getServicesHandle().getService(StringContentService.class).getContent();
-			return (ResponseServiceProvider<Service>) new HtmlDomBuilderProvider(content);
+			if(response.getProxyResponseHeader().getField("Content-Type").contains("html")) {
+				String content = response.getServicesHandle().getService(StringContentService.class).getContent();
+				return (ResponseServiceProvider<Service>) new HtmlDomBuilderProvider(content);
+			}
 		}
 		
 		return null;
