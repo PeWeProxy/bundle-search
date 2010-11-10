@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plugin SYSTEM "PluginConfiguration.dtd">
+<plugin>
+	<name>HtmlDomSenderModule</name>
+	<classLocation/>
+	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.htmldom.HtmlDomSenderModule</className>
+	<types>
+		<type>ResponseServiceModule</type>
+	</types>
+	<parameters>
+	</parameters>
+</plugin>
