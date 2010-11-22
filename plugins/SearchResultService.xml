@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plugin SYSTEM "PluginConfiguration.dtd">
 <plugin>
-	<name>GoogleSearchEngineServiceModule</name>
+	<name>SearchResultService</name>
 	<classLocation/>
-	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.searchEngineService.GoogleSearchEngineServiceModule</className>
+	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.searchEngineService.SearchResultServiceModule</className>
 	<types>
 		<type>ResponseServiceModule</type>
 	</types>

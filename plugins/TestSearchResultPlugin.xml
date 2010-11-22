@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plugin SYSTEM "PluginConfiguration.dtd">
 <plugin>
-	<name>SearchResultManipulatorPlugin</name>
+	<name>TestSearchResultPlugin</name>
 	<classLocation/>
-	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.search.SearchResultManipulatorPlugin</className>
+	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.search.TestSearchResultPlugin</className>
 	<types>
 		<type>ResponseProcessingPlugin</type>
 	</types>

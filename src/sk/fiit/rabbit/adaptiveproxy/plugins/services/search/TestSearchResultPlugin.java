@@ -11,15 +11,15 @@ import sk.fiit.peweproxy.plugins.processing.ResponseProcessingPlugin;
 import sk.fiit.peweproxy.services.ProxyService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomBuilderService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultManipulatorService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
 
-public class SearchResultManipulatorPlugin implements ResponseProcessingPlugin {
+public class TestSearchResultPlugin implements ResponseProcessingPlugin {
 
 	@Override
 	public void desiredResponseServices(
 			Set<Class<? extends ProxyService>> desiredServices,
 			ResponseHeader webRPHeader) {
-		desiredServices.add(SearchResultManipulatorService.class);
+		desiredServices.add(ModifiableSearchResultService.class);
 		desiredServices.add(HtmlDomBuilderService.class);
 		desiredServices.add(HtmlDomSenderService.class);
 	}
@@ -42,11 +42,11 @@ public class SearchResultManipulatorPlugin implements ResponseProcessingPlugin {
 	public ResponseProcessingActions processResponse(
 			ModifiableHttpResponse response) {
 		
-		SearchResultManipulatorService searchResultManipulatorService = response.getServicesHandle().getService(SearchResultManipulatorService.class);
-		searchResultManipulatorService.deleteResult(3);
-		searchResultManipulatorService.moveResult(2, 7);
-		searchResultManipulatorService.swapResults(3, 4);
-		searchResultManipulatorService.putResult(1, "iwan.yweb.sk", "iwan.yweb.sk", "O slonoch", "Niekedy sa pozriem na nebo a spýtam sa „Kto som“? A vždy si uvedomím, že by to nebola taká sranda, keby som to vedel. Preto");
+		ModifiableSearchResultService modifiableSearchResultService = response.getServicesHandle().getService(ModifiableSearchResultService.class);
+		modifiableSearchResultService.deleteResult(3);
+		modifiableSearchResultService.moveResult(2, 7);
+		modifiableSearchResultService.swapResults(3, 4);
+		modifiableSearchResultService.putResult(new SearchResultObject("http://iwan.yweb.sk", "O slonoch", "Niekedy sa pozriem na nebo a spýtam sa „Kto som“? A vždy si uvedomím, že by to nebola taká sranda, keby som to vedel. Preto", 1));
 		
 		return ResponseProcessingActions.PROCEED;
 	}

@@ -10,20 +10,21 @@ import org.jdom.xpath.XPath;
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.peweproxy.plugins.services.ResponseServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultManipulatorService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultService;
 
-class GoogleSearchResultManipulatorServiceProvider implements
-		SearchResultManipulatorService, ResponseServiceProvider<SearchResultManipulatorService> {
+class GoogleModifiableSearchResultServiceProvider implements
+		ModifiableSearchResultService, ResponseServiceProvider<SearchResultService> {
 	
 	private static final String resultsParentElementPath = "/html/body/div[@id='cnt']/div[@id='nr_container']/div[@id='center_col']/div[@id='res']/div[@id='ires']/ol";
-	private static final Logger logger = Logger.getLogger(GoogleSearchResultManipulatorServiceProvider.class);
+	private static final Logger logger = Logger.getLogger(GoogleModifiableSearchResultServiceProvider.class);
 	
 	private Document responseDom;
 	private ArrayList<Instruction> instructions;
 	
-	public GoogleSearchResultManipulatorServiceProvider(Document responseDom) {
+	public GoogleModifiableSearchResultServiceProvider(Document responseDom) {
 		this.responseDom = responseDom;
-		this.instructions = new ArrayList<GoogleSearchResultManipulatorServiceProvider.Instruction>(10);
+		this.instructions = new ArrayList<GoogleModifiableSearchResultServiceProvider.Instruction>(10);
 	}
 	
 	private interface Instruction {
@@ -179,8 +180,9 @@ class GoogleSearchResultManipulatorServiceProvider implements
 	}
 
 	@Override
-	public void putResult(int position, String url, String baseUrl, String title, String perex) {
-		instructions.add(new PutInstruction(position, url, baseUrl, title, perex));
+	public void putResult(SearchResultObject result) {
+		//TODO: refactor this!
+		instructions.add(new PutInstruction(result.getOrder(), result.getUrl(), result.getUrl(), result.getHeader(), result.getPerex()));
 	}
 
 	@Override
@@ -199,12 +201,24 @@ class GoogleSearchResultManipulatorServiceProvider implements
 	}
 	
 	@Override
+	public SearchResultObject[] getSearchedData() {
+		GoogleSearchResultServiceProvider readingProvider = new GoogleSearchResultServiceProvider(responseDom); 
+		return readingProvider.getSearchedData();
+	}
+
+	@Override
+	public String getQueryString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public String getServiceIdentification() {
 		return this.getClass().getName();
 	}
 
 	@Override
-	public SearchResultManipulatorService getService() {
+	public GoogleModifiableSearchResultServiceProvider getService() {
 		return this;
 	}
 

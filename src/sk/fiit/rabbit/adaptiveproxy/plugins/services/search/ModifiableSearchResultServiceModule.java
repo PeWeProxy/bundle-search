@@ -13,12 +13,12 @@ import sk.fiit.peweproxy.plugins.services.ResponseServiceProvider;
 import sk.fiit.peweproxy.services.ProxyService;
 import sk.fiit.peweproxy.services.ServiceUnavailableException;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomBuilderService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultManipulatorService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
 
-public class SearchResultManipulatorServiceModule implements ResponseServiceModule {
+public class ModifiableSearchResultServiceModule implements ResponseServiceModule {
 
-	private static final Logger logger = Logger.getLogger(SearchResultManipulatorServiceModule.class);
+	private static final Logger logger = Logger.getLogger(ModifiableSearchResultServiceModule.class);
 	
 	@Override
 	public boolean supportsReconfigure(PluginProperties newProps) {
@@ -45,7 +45,7 @@ public class SearchResultManipulatorServiceModule implements ResponseServiceModu
 	@Override
 	public void getProvidedResponseServices(
 			Set<Class<? extends ProxyService>> providedServices) {
-		providedServices.add(SearchResultManipulatorService.class);
+		providedServices.add(ModifiableSearchResultService.class);
 
 	}
 	
@@ -66,12 +66,12 @@ public class SearchResultManipulatorServiceModule implements ResponseServiceModu
 			HttpResponse response, Class<Service> serviceClass)
 			throws ServiceUnavailableException {
 		
-		if(SearchResultManipulatorService.class.equals(serviceClass)){
+		if(ModifiableSearchResultService.class.equals(serviceClass)){
 			Document responseDom = response.getServicesHandle().getService(HtmlDomBuilderService.class).getHTMLDom();
 			String requestURI = response.getRequest().getClientRequestHeader().getRequestURI();
 			
 			if (isGoogleSearchResult(requestURI)) {
-				return (ResponseServiceProvider<Service>) new GoogleSearchResultManipulatorServiceProvider(responseDom);
+				return (ResponseServiceProvider<Service>) new GoogleModifiableSearchResultServiceProvider(responseDom);
 			}
 		}
 		return null;

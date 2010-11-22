@@ -1,4 +1,4 @@
-package sk.fiit.rabbit.adaptiveproxy.plugins.services.searchEngineService;
+package sk.fiit.rabbit.adaptiveproxy.plugins.services.search;
 
 public class SearchResultObject 
 {
