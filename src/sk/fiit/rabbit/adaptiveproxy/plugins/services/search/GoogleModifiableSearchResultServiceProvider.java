@@ -208,8 +208,8 @@ class GoogleModifiableSearchResultServiceProvider implements
 
 	@Override
 	public String getQueryString() {
-		// TODO Auto-generated method stub
-		return null;
+		GoogleSearchResultServiceProvider readingProvider = new GoogleSearchResultServiceProvider(responseDom);
+		return readingProvider.getQueryString();
 	}
 	
 	@Override
