@@ -2,6 +2,8 @@ package sk.fiit.rabbit.adaptiveproxy.plugins.services.search;
 
 public class SearchResultObject 
 {
+	private static final int maxUrlLength = 100; 
+	
 	private String url;
 	private String header;
 	private String perex;
@@ -18,6 +20,17 @@ public class SearchResultObject
 	public String getUrl()
 	{
 		return this.url;
+	}
+	
+	public String getShortUrl()
+	{
+		if (this.url.length() > maxUrlLength){
+			//TODO: invent nicer algorithm
+			return this.url.substring(0, maxUrlLength - 1);
+		}
+		else{
+			return this.url;
+		}
 	}
 	
 	public String getHeader()

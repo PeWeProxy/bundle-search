@@ -32,19 +32,18 @@ class GoogleModifiableSearchResultServiceProvider implements
 	}
 	
 	private class PutInstruction implements Instruction{
-		int position;
-		String url;
-		String baseUrl;
-		String title;
-		String perex;
+		private int position;
+		private String url;
+		private String shortUrl;
+		private String title;
+		private String perex;
 		
-		public PutInstruction(int position, String url, String baseUrl, String title,
-				String perex) {
-			this.position = position;
-			this.url = url;
-			this.baseUrl = baseUrl;
-			this.title = title;
-			this.perex = perex;
+		public PutInstruction(SearchResultObject result) {
+			this.position = result.getOrder();
+			this.url = result.getUrl();
+			this.shortUrl = result.getShortUrl();
+			this.title = result.getHeader();
+			this.perex = result.getPerex();
 		}
 
 		@Override
@@ -89,7 +88,7 @@ class GoogleModifiableSearchResultServiceProvider implements
 			div_s.addContent(span_f);
 			
 			Element cite = new Element("cite");
-			cite.setText(baseUrl + "/");
+			cite.setText(shortUrl + "/");
 			span_f.addContent(cite);
 
 			//insert the result into document
@@ -181,8 +180,7 @@ class GoogleModifiableSearchResultServiceProvider implements
 
 	@Override
 	public void putResult(SearchResultObject result) {
-		//TODO: refactor this!
-		instructions.add(new PutInstruction(result.getOrder(), result.getUrl(), result.getUrl(), result.getHeader(), result.getPerex()));
+		instructions.add(new PutInstruction(result));
 	}
 
 	@Override
@@ -232,7 +230,6 @@ class GoogleModifiableSearchResultServiceProvider implements
 		for (Instruction instruction : instructions){
 			instruction.execute();
 		}
-		System.out.println("\n\nDOING CHANGES\n\n");
 		response.getServicesHandle().getService(HtmlDomSenderService.class).setHTMLDom(responseDom);
 	}
 
