@@ -53,7 +53,9 @@ public class HtmlDomSenderModule implements ResponseServiceModule {
 			StringBuilder content = response.getServicesHandle().getService(ModifiableStringService.class).getModifiableContent();
 			if(document != null) {
 				Document modifiedDocument = (Document)document.clone();
-	    		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+				Format format = Format.getRawFormat();
+				format.setExpandEmptyElements(true);
+				XMLOutputter outputter = new XMLOutputter(format);
 	            String modifiedContent = outputter.outputString(modifiedDocument);
 				if(modifiedContent != null) {
 					if(content != null) {

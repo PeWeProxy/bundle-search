@@ -45,6 +45,7 @@ public class HtmlDomBuilderModule implements ResponseServiceModule {
 	        	// initialize HtmlCleaner parser  
 	    		HtmlCleaner cleaner = new HtmlCleaner();
 	    		CleanerProperties props = cleaner.getProperties();
+	    		props.setUseCdataForScriptAndStyle(false);
 	    		
 	    		// parse
 	    		TagNode node = cleaner.clean(content);
