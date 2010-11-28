@@ -68,7 +68,7 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 		
 		if(ModifiableSearchResultService.class.equals(serviceClass)){
 			Document responseDom = response.getServicesHandle().getService(HtmlDomBuilderService.class).getHTMLDom();
-			String requestURI = response.getRequest().getClientRequestHeader().getRequestURI();
+			String requestURI = response.getRequest().getRequestHeader().getRequestURI();
 			
 			if (isGoogleSearchResult(requestURI)) {
 				return (ResponseServiceProvider<Service>) new GoogleModifiableSearchResultServiceProvider(responseDom);
