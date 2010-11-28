@@ -4,7 +4,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
 
-import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.GoogleModifiableSearchResultServiceProvider;
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResultServiceProvider;
 
 public class SwapInstruction implements Instruction{
 
@@ -19,7 +19,7 @@ public class SwapInstruction implements Instruction{
 	}
 
 	@Override
-	public void execute(GoogleModifiableSearchResultServiceProvider provider) {
+	public void execute(ModifiableSearchResultServiceProvider provider) {
 		responseDom = provider.getResponseDom();
 		
 		System.out.println("swapping " + position1 + ", " + position2);

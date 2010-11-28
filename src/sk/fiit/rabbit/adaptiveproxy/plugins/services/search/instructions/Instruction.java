@@ -1,8 +1,7 @@
 package sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions;
 
-import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.GoogleModifiableSearchResultServiceProvider;
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResultServiceProvider;
 
 public interface Instruction {
-	//TODO: refactor
-	public void execute(GoogleModifiableSearchResultServiceProvider provider);
+	public void execute(ModifiableSearchResultServiceProvider provider);
 }

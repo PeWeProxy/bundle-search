@@ -4,7 +4,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
 
-import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.GoogleModifiableSearchResultServiceProvider;
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResultServiceProvider;
 
 public class MoveInstruction implements Instruction {
 
@@ -22,7 +22,7 @@ public class MoveInstruction implements Instruction {
 	}
 
 	@Override
-	public void execute(GoogleModifiableSearchResultServiceProvider provider) {
+	public void execute(ModifiableSearchResultServiceProvider provider) {
 		responseDom = provider.getResponseDom();
 		
 		System.out.println("moving from " + position + " to " + newPosition);

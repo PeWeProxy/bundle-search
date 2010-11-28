@@ -50,6 +50,7 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 	}
 	
 	private boolean isGoogleSearchResult(String requestURI) {
+		//TODO: refine
 		if(requestURI.matches("http://www\\.google\\.[a-z]{2,4}/search\\?.+")) {
 			return true;
 		}

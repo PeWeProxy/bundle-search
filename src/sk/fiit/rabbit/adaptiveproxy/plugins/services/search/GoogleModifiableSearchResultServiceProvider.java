@@ -6,18 +6,14 @@ import org.apache.log4j.Logger;
 import org.jdom.Document;
 
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
-import sk.fiit.peweproxy.plugins.services.ResponseServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.DeleteInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.Instruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.MoveInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.PutInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.SwapInstruction;
 
-public class GoogleModifiableSearchResultServiceProvider implements
-		ModifiableSearchResultService, ResponseServiceProvider<SearchResultService> {
+public class GoogleModifiableSearchResultServiceProvider implements ModifiableSearchResultServiceProvider {
 	
 	private static final String resultsParentElementPath = "/html/body/div[@id='cnt']/div[@id='nr_container']/div[@id='center_col']/div[@id='res']/div[@id='ires']/ol";
 	private static final Logger logger = Logger.getLogger(GoogleModifiableSearchResultServiceProvider.class);
