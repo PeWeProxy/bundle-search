@@ -3,7 +3,7 @@
 <plugin>
 	<name>SearchResultService</name>
 	<classLocation/>
-	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.searchEngineService.SearchResultServiceModule</className>
+	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.search.SearchResultServiceModule</className>
 	<types>
 		<type>ResponseServiceModule</type>
 	</types>
