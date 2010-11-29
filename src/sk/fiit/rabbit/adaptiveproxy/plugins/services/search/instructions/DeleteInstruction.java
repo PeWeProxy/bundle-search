@@ -24,8 +24,6 @@ public class DeleteInstruction implements Instruction {
 		
 		System.out.println("deleting " + position);
 		try {
-			Element test = (Element)XPath.selectSingleNode(responseDom.getRootElement(), provider.getResultsParentElementPath());
-			System.out.println("\n\n\n" + test + "\n\n\n");
 			Element result = (Element)XPath.selectSingleNode(responseDom.getRootElement(), provider.getResultsParentElementPath() + "/li[" + position + "]");
 			if (result != null){
 				result.detach();

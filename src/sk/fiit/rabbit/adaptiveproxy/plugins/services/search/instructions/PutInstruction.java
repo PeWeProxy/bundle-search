@@ -115,6 +115,7 @@ public class PutInstruction implements Instruction {
 		
 		Element span_url = new Element("span");
 		span_url.setAttribute("class", "url");
+		span_url.setText(shortUrl);
 		div_res.addContent(span_url);
 		
 		//insert the result into document
@@ -130,8 +131,50 @@ public class PutInstruction implements Instruction {
 
 	@Override
 	public void execute(BingModifiableSearchResultServiceProvider provider) {
-		// TODO Auto-generated method stub
+		responseDom = provider.getResponseDom();
 		
+		System.out.println("Putting to " + position);
+		//puzzle the result	
+		
+		Element li_sa_wr = new Element("li");
+		li_sa_wr.setAttribute("class", "sa_wr");
+		
+		Element div_sa_cc = new Element("div");
+		div_sa_cc.setAttribute("class", "sa_cc");
+		li_sa_wr.addContent(div_sa_cc);
+		
+		Element div_sb_tlst = new Element("div");
+		div_sb_tlst.setAttribute("class", "sb_tlst");
+		div_sa_cc.addContent(div_sb_tlst);
+		
+		Element h3 = new Element("h3");
+		div_sb_tlst.addContent(h3);
+		
+		Element a = new Element("a");
+		a.setAttribute("href", url);
+		a.setText(title);
+		h3.addContent(a);
+		
+		Element p = new Element("p");
+		p.setText(perex);
+		div_sa_cc.addContent(p);
+		
+		Element div_sb_meta = new Element("div");
+		div_sb_meta.setAttribute("class", "sb_meta");
+		div_sa_cc.addContent(div_sb_meta);
+		
+		Element cite = new Element("cite");
+		cite.setText(shortUrl);
+		div_sb_meta.addContent(cite);
+		
+		//insert the result into document
+		try {
+			Element ul = (Element)XPath.selectSingleNode(responseDom.getRootElement(), provider.getResultsParentElementPath());
+			ul.addContent(position - 1, li_sa_wr); //works better for Bing with minus one
+		} catch (Exception e) {
+			//TODO: logger???
+			//logger.error("Cannot put result", e);
+		}
 	}
 
 }
