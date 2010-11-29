@@ -4,6 +4,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
 
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.BingModifiableSearchResultServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.GoogleModifiableSearchResultServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResultServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.YahooModifiableSearchResultServiceProvider;
@@ -43,12 +44,15 @@ public class SwapInstruction implements Instruction{
 	@Override
 	public void execute(GoogleModifiableSearchResultServiceProvider provider) {
 		genericExecute(provider);
-		
 	}
 
 	@Override
 	public void execute(YahooModifiableSearchResultServiceProvider provider) {
 		genericExecute(provider);
-		
+	}
+
+	@Override
+	public void execute(BingModifiableSearchResultServiceProvider provider) {
+		genericExecute(provider);
 	}
 }

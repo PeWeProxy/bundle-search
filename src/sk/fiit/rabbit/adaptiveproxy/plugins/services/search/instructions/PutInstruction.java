@@ -4,6 +4,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
 
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.BingModifiableSearchResultServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.GoogleModifiableSearchResultServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.SearchResultObject;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.YahooModifiableSearchResultServiceProvider;
@@ -124,6 +125,12 @@ public class PutInstruction implements Instruction {
 			//TODO: logger???
 			//logger.error("Cannot put result", e);
 		}
+		
+	}
+
+	@Override
+	public void execute(BingModifiableSearchResultServiceProvider provider) {
+		// TODO Auto-generated method stub
 		
 	}
 

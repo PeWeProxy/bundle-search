@@ -49,6 +49,7 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 
 	}
 	
+	//TODO: move this into provider?
 	private boolean isGoogleSearchResult(String requestURI) {
 		//TODO: refine
 		if(requestURI.matches("http://www\\.google\\.[a-z]{2,4}/search\\?.+")) {
@@ -58,7 +59,6 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 		else {
 			return false;
 		}
-		
 	}
 	
 	private boolean isYahooSearchResult(String requestURI) {
@@ -70,6 +70,17 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 			return false;
 		}
 	}
+	
+	private boolean isBingSearchResult(String requestURI) {
+		if(requestURI.matches("http://www\\.bing\\.com/search\\?.+")) {
+			logger.info("A Bing search result page.");
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -86,6 +97,9 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 			}
 			else if (isYahooSearchResult(requestURI)) {
 				return (ResponseServiceProvider<Service>) new YahooModifiableSearchResultServiceProvider(responseDom);
+			}
+			else if (isBingSearchResult(requestURI)){
+				return (ResponseServiceProvider<Service>) new BingModifiableSearchResultServiceProvider(responseDom);
 			}
 		}
 		return null;
