@@ -7,21 +7,23 @@ import org.jdom.Document;
 
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.DeleteInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.Instruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.MoveInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.PutInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.SwapInstruction;
 
-public class GoogleModifiableSearchResultServiceProvider implements ModifiableSearchResultServiceProvider {
-
-	private static final String resultsParentElementPath = "/html/body/div[@id='cnt']/div[@id='nr_container']/div[@id='center_col']/div[@id='res']/div[@id='ires']/ol";
-	private static final Logger logger = Logger.getLogger(GoogleModifiableSearchResultServiceProvider.class);
+public class YahooModifiableSearchResultServiceProvider implements
+		ModifiableSearchResultServiceProvider {
+	
+	private static final String resultsParentElementPath = "";
+	private static final Logger logger = Logger.getLogger(YahooModifiableSearchResultServiceProvider.class);
 	
 	private Document responseDom;
 	private ArrayList<Instruction> instructions;
 	
-	public GoogleModifiableSearchResultServiceProvider(Document responseDom) {
+	public YahooModifiableSearchResultServiceProvider(Document responseDom) {
 		this.responseDom = responseDom;
 		this.instructions = new ArrayList<Instruction>(10);
 	}
@@ -45,23 +47,25 @@ public class GoogleModifiableSearchResultServiceProvider implements ModifiableSe
 	public void deleteResult(int position) {
 		instructions.add(new DeleteInstruction(position));
 	}
-	
+
 	@Override
 	public SearchResultObject[] getSearchedData() {
-		GoogleSearchResultServiceProvider readingProvider = new GoogleSearchResultServiceProvider(responseDom); 
-		return readingProvider.getSearchedData();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public String getQueryString() {
-		GoogleSearchResultServiceProvider readingProvider = new GoogleSearchResultServiceProvider(responseDom);
-		return readingProvider.getQueryString();
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	public String getResultsParentElementPath(){
-		return GoogleModifiableSearchResultServiceProvider.resultsParentElementPath;
+	@Override
+	public String getResultsParentElementPath() {
+		return YahooModifiableSearchResultServiceProvider.resultsParentElementPath;
 	}
-	
+
+	@Override
 	public Document getResponseDom() {
 		return responseDom;
 	}
@@ -72,7 +76,7 @@ public class GoogleModifiableSearchResultServiceProvider implements ModifiableSe
 	}
 
 	@Override
-	public ModifiableSearchResultServiceProvider getService() {
+	public ModifiableSearchResultService getService() {
 		return this;
 	}
 
@@ -80,11 +84,11 @@ public class GoogleModifiableSearchResultServiceProvider implements ModifiableSe
 	public boolean initChangedModel() {
 		return true;
 	}
-
+	
 	@Override
 	public void doChanges(ModifiableHttpResponse response) {
 		for (Instruction instruction : instructions){
-			instruction.execute((GoogleModifiableSearchResultServiceProvider)this);
+			instruction.execute(this);
 		}
 		response.getServicesHandle().getService(HtmlDomSenderService.class).setHTMLDom(responseDom);
 	}

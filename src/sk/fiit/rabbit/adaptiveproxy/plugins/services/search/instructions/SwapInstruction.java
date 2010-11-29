@@ -4,7 +4,9 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
 
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.GoogleModifiableSearchResultServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResultServiceProvider;
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.YahooModifiableSearchResultServiceProvider;
 
 public class SwapInstruction implements Instruction{
 
@@ -18,8 +20,7 @@ public class SwapInstruction implements Instruction{
 		this.position2 = (position2 > position1) ? position2 : position1; //larger one
 	}
 
-	@Override
-	public void execute(ModifiableSearchResultServiceProvider provider) {
+	private void genericExecute(ModifiableSearchResultServiceProvider provider) {
 		responseDom = provider.getResponseDom();
 		
 		System.out.println("swapping " + position1 + ", " + position2);
@@ -37,5 +38,17 @@ public class SwapInstruction implements Instruction{
 			//TODO: logger
 			//logger.error("Cannot swap results", e);
 		}			
+	}
+
+	@Override
+	public void execute(GoogleModifiableSearchResultServiceProvider provider) {
+		genericExecute(provider);
+		
+	}
+
+	@Override
+	public void execute(YahooModifiableSearchResultServiceProvider provider) {
+		genericExecute(provider);
+		
 	}
 }

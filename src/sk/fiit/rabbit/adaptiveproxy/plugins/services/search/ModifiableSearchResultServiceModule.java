@@ -52,13 +52,23 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 	private boolean isGoogleSearchResult(String requestURI) {
 		//TODO: refine
 		if(requestURI.matches("http://www\\.google\\.[a-z]{2,4}/search\\?.+")) {
+			logger.info("A Google search result page.");
 			return true;
 		}
 		else {
-			logger.info("Not a Google search result page.");
 			return false;
 		}
 		
+	}
+	
+	private boolean isYahooSearchResult(String requestURI) {
+		if(requestURI.matches("http://search\\.yahoo\\.com/search.+")) {
+			logger.info("A Yahoo! search result page.");
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,6 +83,9 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 			
 			if (isGoogleSearchResult(requestURI)) {
 				return (ResponseServiceProvider<Service>) new GoogleModifiableSearchResultServiceProvider(responseDom);
+			}
+			else if (isYahooSearchResult(requestURI)) {
+				return (ResponseServiceProvider<Service>) new YahooModifiableSearchResultServiceProvider(responseDom);
 			}
 		}
 		return null;

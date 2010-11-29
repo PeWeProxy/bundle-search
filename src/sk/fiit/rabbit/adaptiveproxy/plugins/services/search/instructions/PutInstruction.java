@@ -5,8 +5,8 @@ import org.jdom.Element;
 import org.jdom.xpath.XPath;
 
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.GoogleModifiableSearchResultServiceProvider;
-import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResultServiceProvider;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.SearchResultObject;
+import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.YahooModifiableSearchResultServiceProvider;
 
 public class PutInstruction implements Instruction {
 	
@@ -24,12 +24,6 @@ public class PutInstruction implements Instruction {
 		this.shortUrl = result.getShortUrl();
 		this.title = result.getHeader();
 		this.perex = result.getPerex();
-	}
-	
-	@Override
-	public void execute(ModifiableSearchResultServiceProvider provider) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void execute(GoogleModifiableSearchResultServiceProvider provider) {
@@ -86,6 +80,12 @@ public class PutInstruction implements Instruction {
 			//TODO: logger???
 			//logger.error("Cannot put result", e);
 		}
+	}
+
+	@Override
+	public void execute(YahooModifiableSearchResultServiceProvider provider) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
