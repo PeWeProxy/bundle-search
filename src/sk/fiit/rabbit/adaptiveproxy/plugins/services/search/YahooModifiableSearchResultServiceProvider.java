@@ -17,7 +17,7 @@ import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.SwapIns
 public class YahooModifiableSearchResultServiceProvider implements
 		ModifiableSearchResultServiceProvider {
 	
-	private static final String resultsParentElementPath = "";
+	private static final String resultsParentElementPath = "/html/body/div[@id='doc']/div[@role='document']/div[@id='results']/div[@id='cols']/div[@id='left']/div[@id='main']/div[@id='web']/ol";
 	private static final Logger logger = Logger.getLogger(YahooModifiableSearchResultServiceProvider.class);
 	
 	private Document responseDom;

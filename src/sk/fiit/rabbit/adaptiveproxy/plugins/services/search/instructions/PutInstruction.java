@@ -84,7 +84,46 @@ public class PutInstruction implements Instruction {
 
 	@Override
 	public void execute(YahooModifiableSearchResultServiceProvider provider) {
-		// TODO Auto-generated method stub
+		responseDom = provider.getResponseDom();
+		
+		System.out.println("Putting to " + position);
+		//puzzle the result
+		
+		Element li = new Element("li");
+		
+		Element div_res = new Element("div");
+		div_res.setAttribute("class", "res");
+		li.addContent(div_res);
+		
+		Element div = new Element("div");
+		div_res.addContent(div);
+		
+		Element h3 = new Element("h3");
+		div.addContent(h3);
+		
+		Element a_yschttl_spt = new Element("a");
+		a_yschttl_spt.setAttribute("class", "yschttl spt");
+		a_yschttl_spt.setAttribute("href", url);
+		a_yschttl_spt.setText(title);
+		h3.addContent(a_yschttl_spt);
+		
+		Element div_abstr = new Element("div");
+		div_abstr.setAttribute("class", "abstr");
+		div_abstr.setText(perex);
+		div_res.addContent(div_abstr);
+		
+		Element span_url = new Element("span");
+		span_url.setAttribute("class", "url");
+		div_res.addContent(span_url);
+		
+		//insert the result into document
+		try {
+			Element ol = (Element)XPath.selectSingleNode(responseDom.getRootElement(), provider.getResultsParentElementPath());
+			ol.addContent(position - 1, li); //works better for Yahoo! with minus one 
+		} catch (Exception e) {
+			//TODO: logger???
+			//logger.error("Cannot put result", e);
+		}
 		
 	}
 
