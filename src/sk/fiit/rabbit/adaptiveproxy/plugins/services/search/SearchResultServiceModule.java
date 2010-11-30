@@ -38,7 +38,7 @@ public class SearchResultServiceModule implements ResponseServiceModule{
 	public void desiredResponseServices(
 			Set<Class<? extends ProxyService>> desiredServices,
 			ResponseHeader webRPHeader) {
-		desiredServices.add(StringContentService.class);
+		desiredServices.add(HtmlDomBuilderService.class);
 	}
 
 	@Override
@@ -55,12 +55,50 @@ public class SearchResultServiceModule implements ResponseServiceModule{
 		
 		if(serviceClass.equals(SearchResultService.class)) {
 			HtmlDomBuilderService htmlDomBuilderService = response.getServicesHandle().getService(HtmlDomBuilderService.class);
-			Document document = htmlDomBuilderService.getHTMLDom();
-			
-			return (ResponseServiceProvider<Service>) new GoogleSearchResultServiceProvider(document);
+			Document document;
+			String requestURI = response.getRequest().getClientRequestHeader().getRequestURI();
+			if(isGoogleSearchResult(requestURI)){
+				document = htmlDomBuilderService.getHTMLDom();
+				return (ResponseServiceProvider<Service>) new GoogleSearchResultServiceProvider(document);
+			}
+			if(isYahooSearchResult(requestURI)){
+				document = htmlDomBuilderService.getHTMLDom();
+				return (ResponseServiceProvider<Service>) new YahooSearchResultServiceProvider(document);
+			}
+			if(isBingSearchResult(requestURI)){
+				document = htmlDomBuilderService.getHTMLDom();
+				return (ResponseServiceProvider<Service>) new BingSearchResultServiceProvider(document);
+			}		
 		}
 		
 		return null;
+	}
+	
+	private boolean isGoogleSearchResult(String requestURI) {
+		if(requestURI.matches("http://www\\.google\\.[a-z]{2,4}/search\\?.+")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean isYahooSearchResult(String requestURI){
+		if(requestURI.matches("http://search\\.yahoo\\.com/search.+")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean isBingSearchResult(String requestURI){
+		if(requestURI.matches("http://www\\.bing\\.com/search.+")) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 }
