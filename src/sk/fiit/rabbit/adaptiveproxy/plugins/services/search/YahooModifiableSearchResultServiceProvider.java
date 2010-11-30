@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.jdom.Document;
+import org.jdom.Element;
 
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
@@ -68,6 +69,40 @@ public class YahooModifiableSearchResultServiceProvider implements
 	@Override
 	public Document getResponseDom() {
 		return responseDom;
+	}
+
+	@Override
+	public Element puzzleResultElement(SearchResultObject result) {
+		
+		Element li = new Element("li");
+		
+		Element div_res = new Element("div");
+		div_res.setAttribute("class", "res");
+		li.addContent(div_res);
+		
+		Element div = new Element("div");
+		div_res.addContent(div);
+		
+		Element h3 = new Element("h3");
+		div.addContent(h3);
+		
+		Element a_yschttl_spt = new Element("a");
+		a_yschttl_spt.setAttribute("class", "yschttl spt");
+		a_yschttl_spt.setAttribute("href", result.getUrl());
+		a_yschttl_spt.setText(result.getHeader());
+		h3.addContent(a_yschttl_spt);
+		
+		Element div_abstr = new Element("div");
+		div_abstr.setAttribute("class", "abstr");
+		div_abstr.setText(result.getPerex());
+		div_res.addContent(div_abstr);
+		
+		Element span_url = new Element("span");
+		span_url.setAttribute("class", "url");
+		span_url.setText(result.getShortUrl());
+		div_res.addContent(span_url);
+		
+		return li;
 	}
 
 	@Override

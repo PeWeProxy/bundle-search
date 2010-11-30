@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.jdom.Document;
+import org.jdom.Element;
 
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
@@ -70,6 +71,43 @@ public class BingModifiableSearchResultServiceProvider implements
 		return responseDom;
 	}
 	
+	@Override
+	public Element puzzleResultElement(SearchResultObject result) {
+		
+		Element li_sa_wr = new Element("li");
+		li_sa_wr.setAttribute("class", "sa_wr");
+		
+		Element div_sa_cc = new Element("div");
+		div_sa_cc.setAttribute("class", "sa_cc");
+		li_sa_wr.addContent(div_sa_cc);
+		
+		Element div_sb_tlst = new Element("div");
+		div_sb_tlst.setAttribute("class", "sb_tlst");
+		div_sa_cc.addContent(div_sb_tlst);
+		
+		Element h3 = new Element("h3");
+		div_sb_tlst.addContent(h3);
+		
+		Element a = new Element("a");
+		a.setAttribute("href", result.getUrl());
+		a.setText(result.getHeader());
+		h3.addContent(a);
+		
+		Element p = new Element("p");
+		p.setText(result.getPerex());
+		div_sa_cc.addContent(p);
+		
+		Element div_sb_meta = new Element("div");
+		div_sb_meta.setAttribute("class", "sb_meta");
+		div_sa_cc.addContent(div_sb_meta);
+		
+		Element cite = new Element("cite");
+		cite.setText(result.getShortUrl());
+		div_sb_meta.addContent(cite);
+		
+		return li_sa_wr;
+	}
+
 	@Override
 	public String getServiceIdentification() {
 		return this.getClass().getName();
