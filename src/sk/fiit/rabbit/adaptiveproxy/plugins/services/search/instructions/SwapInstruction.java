@@ -1,5 +1,6 @@
 package sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
@@ -10,6 +11,7 @@ import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResu
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.YahooModifiableSearchResultServiceProvider;
 
 public class SwapInstruction implements Instruction{
+	private static final Logger logger = Logger.getLogger(SwapInstruction.class);
 
 	private int position1;
 	private int position2;
@@ -36,8 +38,7 @@ public class SwapInstruction implements Instruction{
 			parent.addContent(position1, result2);
 			parent.addContent(position2, result1);
 		} catch (Exception e) {
-			//TODO: logger
-			//logger.error("Cannot swap results", e);
+			logger.error("Cannot swap results", e);
 		}			
 	}
 

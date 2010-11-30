@@ -1,5 +1,6 @@
 package sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
@@ -10,6 +11,7 @@ import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResu
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.YahooModifiableSearchResultServiceProvider;
 
 public class DeleteInstruction implements Instruction {
+	private static final Logger logger = Logger.getLogger(DeleteInstruction.class);
 
 	private int position;
 	private Document responseDom;
@@ -29,8 +31,7 @@ public class DeleteInstruction implements Instruction {
 				result.detach();
 			}
 		} catch (Exception e) {
-			//TODO: logger?
-			//logger.error("Cannot delete result", e);
+			logger.error("Cannot delete result", e);
 		}
 	}
 

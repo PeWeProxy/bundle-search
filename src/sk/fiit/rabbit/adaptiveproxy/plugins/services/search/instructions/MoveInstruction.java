@@ -1,5 +1,6 @@
 package sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.xpath.XPath;
@@ -10,6 +11,7 @@ import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResu
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.YahooModifiableSearchResultServiceProvider;
 
 public class MoveInstruction implements Instruction {
+	private static final Logger logger = Logger.getLogger(MoveInstruction.class);
 
 	private int position;
 	private int newPosition;
@@ -36,8 +38,7 @@ public class MoveInstruction implements Instruction {
 			result.detach();
 			parent.addContent(newPosition, result);
 		} catch (Exception e) {
-			//TODO: logger?
-			//logger.error("Cannot move result", e);
+			logger.error("Cannot move result", e);
 		}
 	}
 
