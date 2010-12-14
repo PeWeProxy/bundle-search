@@ -40,7 +40,7 @@ public class GoogleSearchResultServiceProvider implements SearchResultService,
 	}
 
 	@Override
-	public SearchResultObject[] getSearchedData() {
+	public ArrayList<SearchResultObject> getSearchedData() {
 		boolean foundP = false;
 		boolean complete = false;
 		int order = 0;
@@ -89,11 +89,7 @@ public class GoogleSearchResultServiceProvider implements SearchResultService,
 			}
 		}
 
-		SearchResultObject[] results = new SearchResultObject[result.size()];
-		for (int i = 0; i < results.length; i++)
-			results[i] = result.get(i);
-
-		return results;
+		return result;
 	}
 
 	private String[] splitString(String string) {
