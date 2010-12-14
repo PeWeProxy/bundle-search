@@ -8,25 +8,27 @@ import org.jdom.Element;
 
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.DeleteInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.Instruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.MoveInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.PutInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.SwapInstruction;
 
-public class GoogleModifiableSearchResultServiceProvider implements ModifiableSearchResultServiceProvider {
-
-	private static final String resultsParentElementPath = "/html/body/div[@id='cnt']/div[@id='nr_container']/div[@id='center_col']/div[@id='res']/div[@id='ires']/ol";
-	private static final Logger logger = Logger.getLogger(GoogleModifiableSearchResultServiceProvider.class);
+public class BingModifiableSearchResultServiceProvider implements
+		ModifiableSearchResultServiceProvider {
 	
+	private static final String resultsParentElementPath = "/html/body/div[@id='sw_page']/div[@id='sw_width']/div[@id='sw_content']/div/div[@id='sw_canvas']/div[@id='sw_main']/div[@id='content']/div[@id='results_area']/div[@id='results_container']/div[@id='results']/ul";
+	private static final Logger logger = Logger.getLogger(YahooModifiableSearchResultServiceProvider.class);
+
 	private Document responseDom;
 	private ArrayList<Instruction> instructions;
 	
-	public GoogleModifiableSearchResultServiceProvider(Document responseDom) {
+	public BingModifiableSearchResultServiceProvider(Document responseDom) {
 		this.responseDom = responseDom;
 		this.instructions = new ArrayList<Instruction>(10);
 	}
-
+	
 	@Override
 	public void putResult(SearchResultObject result) {
 		instructions.add(new PutInstruction(result));
@@ -46,82 +48,73 @@ public class GoogleModifiableSearchResultServiceProvider implements ModifiableSe
 	public void deleteResult(int position) {
 		instructions.add(new DeleteInstruction(position));
 	}
-	
+
 	@Override
 	public ArrayList<SearchResultObject> getSearchedData() {
-		GoogleSearchResultServiceProvider readingProvider = new GoogleSearchResultServiceProvider(responseDom); 
+		BingSearchResultServiceProvider readingProvider = new BingSearchResultServiceProvider(responseDom); 
 		return readingProvider.getSearchedData();
 	}
 
 	@Override
 	public String getQueryString() {
-		GoogleSearchResultServiceProvider readingProvider = new GoogleSearchResultServiceProvider(responseDom);
+		BingSearchResultServiceProvider readingProvider = new BingSearchResultServiceProvider(responseDom); 
 		return readingProvider.getQueryString();
 	}
 	
 	@Override
-	public String getResultsParentElementPath(){
-		return GoogleModifiableSearchResultServiceProvider.resultsParentElementPath;
+	public String getResultsParentElementPath() {
+		return BingModifiableSearchResultServiceProvider.resultsParentElementPath;
 	}
-	
+
 	@Override
 	public Document getResponseDom() {
 		return responseDom;
 	}
-
+	
 	@Override
 	public Element puzzleResultElement(SearchResultObject result) {
 		
-		Element li_g = new Element("li");
-		li_g.setAttribute("class", "g");
+		Element li_sa_wr = new Element("li");
+		li_sa_wr.setAttribute("class", "sa_wr");
 		
-		Element div_vsc = new Element("div");
-		div_vsc.setAttribute("class", "vsc");
-		li_g.addContent(div_vsc);
+		Element div_sa_cc = new Element("div");
+		div_sa_cc.setAttribute("class", "sa_cc");
+		li_sa_wr.addContent(div_sa_cc);
 		
-		Element span_tl = new Element("span");
-		span_tl.setAttribute("class", "tl");
-		div_vsc.addContent(span_tl);
+		Element div_sb_tlst = new Element("div");
+		div_sb_tlst.setAttribute("class", "sb_tlst");
+		div_sa_cc.addContent(div_sb_tlst);
 		
-		Element h3_r = new Element("h3");
-		h3_r.setAttribute("class", "r");
-		span_tl.addContent(h3_r);
+		Element h3 = new Element("h3");
+		div_sb_tlst.addContent(h3);
 		
-		Element a_url = new Element("a");
-		a_url.setAttribute("href", result.getUrl());
-		a_url.setText(result.getHeader());
-		h3_r.addContent(a_url);
+		Element a = new Element("a");
+		a.setAttribute("href", result.getUrl());
+		a.setText(result.getHeader());
+		h3.addContent(a);
 		
-		Element div_s = new Element("div");
-		div_s.setAttribute("class", "s");
-		div_s.setText(result.getPerex());
-		div_vsc.addContent(div_s);
+		Element p = new Element("p");
+		p.setText(result.getPerex());
+		div_sa_cc.addContent(p);
 		
-		Element b = new Element("b");
-		b.setText("...");
-		div_s.addContent(b);
-		
-		Element br = new Element("br");
-		div_s.addContent(br);
-		
-		Element span_f = new Element("span");
-		span_f.setAttribute("class", "f");
-		div_s.addContent(span_f);
+		Element div_sb_meta = new Element("div");
+		div_sb_meta.setAttribute("class", "sb_meta");
+		div_sa_cc.addContent(div_sb_meta);
 		
 		Element cite = new Element("cite");
-		cite.setText(result.getShortUrl() + "/");
-		span_f.addContent(cite);
+		cite.setText(result.getShortUrl());
+		div_sb_meta.addContent(cite);
 		
-		return li_g;
+		return li_sa_wr;
 	}
 
 	@Override
 	public String getServiceIdentification() {
 		return this.getClass().getName();
 	}
-
+	
 	@Override
-	public ModifiableSearchResultServiceProvider getService() {
+	public ModifiableSearchResultService getService() {
 		return this;
 	}
 
@@ -133,7 +126,7 @@ public class GoogleModifiableSearchResultServiceProvider implements ModifiableSe
 	@Override
 	public void doChanges(ModifiableHttpResponse response) {
 		for (Instruction instruction : instructions){
-			instruction.execute((GoogleModifiableSearchResultServiceProvider)this);
+			instruction.execute(this);
 		}
 		response.getServicesHandle().getService(HtmlDomSenderService.class).setHTMLDom(responseDom);
 	}

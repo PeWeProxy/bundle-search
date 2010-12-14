@@ -56,7 +56,7 @@ public class SearchResultServiceModule implements ResponseServiceModule{
 		if(serviceClass.equals(SearchResultService.class)) {
 			HtmlDomBuilderService htmlDomBuilderService = response.getServicesHandle().getService(HtmlDomBuilderService.class);
 			Document document;
-			String requestURI = response.getRequest().getClientRequestHeader().getRequestURI();
+			String requestURI = response.getRequest().getRequestHeader().getRequestURI();
 			if(isGoogleSearchResult(requestURI)){
 				document = htmlDomBuilderService.getHTMLDom();
 				return (ResponseServiceProvider<Service>) new GoogleSearchResultServiceProvider(document);

@@ -43,10 +43,10 @@ public class TestSearchResultPlugin implements ResponseProcessingPlugin {
 			ModifiableHttpResponse response) {
 		
 		ModifiableSearchResultService modifiableSearchResultService = response.getServicesHandle().getService(ModifiableSearchResultService.class);
-		modifiableSearchResultService.deleteResult(3);
+		modifiableSearchResultService.deleteResult(7);
 		modifiableSearchResultService.moveResult(2, 7);
 		modifiableSearchResultService.swapResults(3, 4);
-		modifiableSearchResultService.putResult(new SearchResultObject("http://iwan.yweb.sk", "O slonoch", "Niekedy sa pozriem na nebo a spýtam sa „Kto som“? A vždy si uvedomím, že by to nebola taká sranda, keby som to vedel. Preto", 1));
+		modifiableSearchResultService.putResult(new SearchResultObject("http://iwan.yweb.sk", "O slonoch", "Niekedy sa pozriem na nebo a spýtam sa „Kto som“? A vždy si uvedomím, že by to nebola taká sranda, keby som to vedel. Preto", 3));
 		
 		return ResponseProcessingActions.PROCEED;
 	}
