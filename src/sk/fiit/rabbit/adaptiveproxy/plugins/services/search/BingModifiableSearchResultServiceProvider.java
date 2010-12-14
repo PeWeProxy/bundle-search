@@ -50,15 +50,15 @@ public class BingModifiableSearchResultServiceProvider implements
 	}
 
 	@Override
-	public SearchResultObject[] getSearchedData() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<SearchResultObject> getSearchedData() {
+		BingSearchResultServiceProvider readingProvider = new BingSearchResultServiceProvider(responseDom); 
+		return readingProvider.getSearchedData();
 	}
 
 	@Override
 	public String getQueryString() {
-		// TODO Auto-generated method stub
-		return null;
+		BingSearchResultServiceProvider readingProvider = new BingSearchResultServiceProvider(responseDom); 
+		return readingProvider.getQueryString();
 	}
 	
 	@Override

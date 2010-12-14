@@ -50,15 +50,15 @@ public class YahooModifiableSearchResultServiceProvider implements
 	}
 
 	@Override
-	public SearchResultObject[] getSearchedData() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<SearchResultObject> getSearchedData() {
+		YahooSearchResultServiceProvider readingProvider = new YahooSearchResultServiceProvider(responseDom); 
+		return readingProvider.getSearchedData();
 	}
 
 	@Override
 	public String getQueryString() {
-		// TODO Auto-generated method stub
-		return null;
+		YahooSearchResultServiceProvider readingProvider = new YahooSearchResultServiceProvider(responseDom); 
+		return readingProvider.getQueryString();
 	}
 	
 	@Override

@@ -48,7 +48,7 @@ public class GoogleModifiableSearchResultServiceProvider implements ModifiableSe
 	}
 	
 	@Override
-	public SearchResultObject[] getSearchedData() {
+	public ArrayList<SearchResultObject> getSearchedData() {
 		GoogleSearchResultServiceProvider readingProvider = new GoogleSearchResultServiceProvider(responseDom); 
 		return readingProvider.getSearchedData();
 	}
