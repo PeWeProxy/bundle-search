@@ -16,7 +16,7 @@ import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.SwapIns
 
 public class GoogleModifiableSearchResultServiceProvider implements ModifiableSearchResultServiceProvider {
 
-	private static final String resultsParentElementPath = "/html/body/div[@id='cnt']/div[@id='nr_container']/div[@id='center_col']/div[@id='res']/div[@id='ires']/ol";
+	private static final String resultsParentElementPath = "/html/body/div[@id='main']/div[@id='cnt']/div[@id='nr_container']/div[@id='center_col']/div[@id='res']/div[@id='ires']/ol";
 	private static final Logger logger = Logger.getLogger(GoogleModifiableSearchResultServiceProvider.class);
 	
 	private Document responseDom;
