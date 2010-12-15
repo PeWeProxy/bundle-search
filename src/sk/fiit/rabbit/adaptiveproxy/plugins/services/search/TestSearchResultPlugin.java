@@ -42,11 +42,20 @@ public class TestSearchResultPlugin implements ResponseProcessingPlugin {
 	public ResponseProcessingActions processResponse(
 			ModifiableHttpResponse response) {
 		
-		ModifiableSearchResultService modifiableSearchResultService = response.getServicesHandle().getService(ModifiableSearchResultService.class);
-		modifiableSearchResultService.deleteResult(7);
-		modifiableSearchResultService.moveResult(2, 7);
-		modifiableSearchResultService.swapResults(3, 4);
-		modifiableSearchResultService.putResult(new SearchResultObject("http://iwan.yweb.sk", "O slonoch", "Niekedy sa pozriem na nebo a sp�tam sa �Kto som�? A v�dy si uvedom�m, �e by to nebola tak� sranda, keby som to vedel. Preto", 3));
+		if(response.getServicesHandle().isServiceAvailable(ModifiableSearchResultService.class)){
+			ModifiableSearchResultService modifiableSearchResultService = response.getServicesHandle().getService(ModifiableSearchResultService.class);
+			String querryString = modifiableSearchResultService.getQueryString();
+			querryString = querryString.trim();
+			
+			if ("catfight".equalsIgnoreCase(querryString)||"mačky".equalsIgnoreCase(querryString)){
+				SearchResultObject searchResultObject = new SearchResultObject(
+						"http://labss2.fiit.stuba.sk/TeamProject/2010/team17is-si/",
+						"CAT fight",
+						"Sme tím číslo 17. Túto stránku sme vytvorili za účelom prezentácie nášho úsilia počas dvoch semestrov na predmete Tímový projekt. Nájdete tu informácie",
+						1);
+				modifiableSearchResultService.putResult(searchResultObject);
+			}
+		}
 		
 		return ResponseProcessingActions.PROCEED;
 	}
