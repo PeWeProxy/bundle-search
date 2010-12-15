@@ -2,6 +2,7 @@ package sk.fiit.rabbit.adaptiveproxy.plugins.services.htmldom;
 
 import java.util.Set;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.output.Format;
@@ -57,6 +58,11 @@ public class HtmlDomSenderModule implements ResponseServiceModule {
 				format.setExpandEmptyElements(true);
 				XMLOutputter outputter = new XMLOutputter(format);
 	            String modifiedContent = outputter.outputString(modifiedDocument);
+	            
+	            //TODO: refactor!
+	            modifiedContent = StringEscapeUtils.unescapeHtml(modifiedContent);
+	            modifiedContent = StringEscapeUtils.unescapeHtml(modifiedContent);
+	            
 				if(modifiedContent != null) {
 					if(content != null) {
 						content.replace(0, content.length(), modifiedContent);
