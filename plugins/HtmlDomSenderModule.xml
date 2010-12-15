@@ -3,6 +3,9 @@
 <plugin>
 	<name>HtmlDomSenderModule</name>
 	<classLocation/>
+	<libraries>
+		<lib>commons-lang-2.5.jar</lib>
+	</libraries>
 	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.htmldom.HtmlDomSenderModule</className>
 	<types>
 		<type>ResponseServiceModule</type>
