@@ -3,6 +3,9 @@
 <plugin>
 	<name>ModifiableSearchResultService</name>
 	<classLocation/>
+	<libraries>
+		<lib>commons-lang-2.5.jar</lib>
+	</libraries>
 	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.search.ModifiableSearchResultServiceModule</className>
 	<types>
 		<type>ResponseServiceModule</type>

@@ -4,7 +4,10 @@
 	<name>HtmlDomSenderModule</name>
 	<classLocation/>
 	<libraries>
-		<lib>commons-lang-2.5.jar</lib>
+		<lib>htmlcleaner2_1.jar</lib>
+		<lib>jaxen-1.1.3.jar</lib>
+		<lib>jdom.jar</lib>
+		<lib>log4j-1.2.15.jar</lib>
 	</libraries>
 	<className>sk.fiit.rabbit.adaptiveproxy.plugins.services.htmldom.HtmlDomSenderModule</className>
 	<types>
