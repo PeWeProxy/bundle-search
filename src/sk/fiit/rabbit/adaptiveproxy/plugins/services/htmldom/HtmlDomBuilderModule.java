@@ -128,7 +128,7 @@ public class HtmlDomBuilderModule implements ResponseServiceModule {
 				content += "<li><table><tr><td>222222222222222</table>\n";
 			content += "</body></html>";
 		
-		org.jdom.Document document = null;
+		Document document = null;
 
 		// Create an instance of the tester and test
         try {
