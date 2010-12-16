@@ -53,6 +53,11 @@ namespace :src do
       javac.src = 'def/*.java'
       javac.cp << 'external_libs/**/*.jar'
       javac.cp << "../../#{PROXY_DIR}/bin"
+			if File.exists?('Bundlefile')
+				File.read('Bundlefile').split.each do |dependency|
+					javac.cp << "../#{dependency}/bin"
+				end
+			end
       javac.cp << "bin"
       javac.output = 'def/bin'
     end
