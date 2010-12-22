@@ -137,8 +137,8 @@ namespace :after do
   desc "Run task after deploy"
   task :deploy do
     #we need this jars for service definitions
-    FileUtils.cp(ENV["DEPLOY_PATH"]+"/libs/jdom.jar", ENV["DEPLOY_PATH"]+"/plugins/services/")
-    FileUtils.cp(ENV["DEPLOY_PATH"]+"/libs/jaxen-1.1.3.jar", ENV["DEPLOY_PATH"]+"/plugins/services/")
+    FileUtils.cp(ENV["PROXY_ROOT"]+"/libs/jdom.jar", ENV["PROXY_ROOT"]+"/plugins/services/")
+    FileUtils.cp(ENV["PROXY_ROOT"]+"/libs/jaxen-1.1.3.jar", ENV["PROXY_ROOT"]+"/plugins/services/")
   end
 end
 
