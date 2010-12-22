@@ -12,6 +12,7 @@ import sk.fiit.peweproxy.services.ProxyService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomBuilderService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultObject;
 
 public class TestSearchResultPlugin implements ResponseProcessingPlugin {
 
@@ -47,11 +48,11 @@ public class TestSearchResultPlugin implements ResponseProcessingPlugin {
 			String querryString = modifiableSearchResultService.getQueryString();
 			querryString = querryString.trim();
 			
-			if ("catfight".equalsIgnoreCase(querryString)||"mačky".equalsIgnoreCase(querryString)){
+			if ("catfight".equalsIgnoreCase(querryString)||"macky".equalsIgnoreCase(querryString)){
 				SearchResultObject searchResultObject = new SearchResultObject(
 						"http://labss2.fiit.stuba.sk/TeamProject/2010/team17is-si/",
 						"CAT fight",
-						"Sme tím číslo 17. Túto stránku sme vytvorili za účelom prezentácie nášho úsilia počas dvoch semestrov na predmete Tímový projekt. Nájdete tu informácie",
+						"Sme tim cislo 17. Tuto stranku sme vytvorili za ucelom prezentacie nasho usilia pocas dvoch semestrov na predmete Timovy projekt. Najdete tu informacie",
 						1);
 				modifiableSearchResultService.putResult(searchResultObject);
 			}

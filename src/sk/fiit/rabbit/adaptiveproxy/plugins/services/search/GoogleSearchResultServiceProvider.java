@@ -8,6 +8,7 @@ import org.jdom.Element;
 
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.peweproxy.plugins.services.ResponseServiceProvider;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultObject;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultService;
 
 public class GoogleSearchResultServiceProvider implements SearchResultService,

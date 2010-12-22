@@ -1,7 +1,6 @@
 package sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions;
 
 import sk.fiit.peweproxy.services.ProxyService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.SearchResultObject;
 
 public interface ModifiableSearchResultService extends SearchResultService, ProxyService {
 	public void putResult(SearchResultObject result);

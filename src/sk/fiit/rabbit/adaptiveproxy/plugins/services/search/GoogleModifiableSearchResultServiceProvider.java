@@ -8,6 +8,7 @@ import org.jdom.Element;
 
 import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultObject;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.DeleteInstruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.Instruction;
 import sk.fiit.rabbit.adaptiveproxy.plugins.services.search.instructions.MoveInstruction;
