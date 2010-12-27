@@ -52,9 +52,8 @@ public class TestSearchResultPlugin implements ResponseProcessingPlugin {
 				SearchResultObject searchResultObject = new SearchResultObject(
 						"http://labss2.fiit.stuba.sk/TeamProject/2010/team17is-si/",
 						"CAT fight",
-						"Sme tim cislo 17. Tuto stranku sme vytvorili za ucelom prezentacie nasho usilia pocas dvoch semestrov na predmete Timovy projekt. Najdete tu informacie",
-						1);
-				modifiableSearchResultService.putResult(searchResultObject);
+						"Sme tim cislo 17. Tuto stranku sme vytvorili za ucelom prezentacie nasho usilia pocas dvoch semestrov na predmete Timovy projekt. Najdete tu informacie");
+				modifiableSearchResultService.putResult(searchResultObject, 1);
 			}
 		}
 		

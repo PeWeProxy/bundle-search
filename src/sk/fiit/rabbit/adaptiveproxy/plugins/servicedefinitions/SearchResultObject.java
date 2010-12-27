@@ -17,6 +17,14 @@ public class SearchResultObject
 		this.order=order;
 	}
 	
+	public SearchResultObject(String url, String header, String perex)
+	{
+		this.url=url;
+		this.header=header;
+		this.perex=perex;
+		this.order = -1;
+	}
+	
 	public String getUrl()
 	{
 		return this.url;

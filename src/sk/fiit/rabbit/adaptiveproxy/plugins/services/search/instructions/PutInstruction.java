@@ -15,22 +15,24 @@ public class PutInstruction implements Instruction {
 	private static final Logger logger = Logger.getLogger(PutInstruction.class);
 	
 	private SearchResultObject result;
+	private int position;
 	private Document responseDom;
 	
-	public PutInstruction(SearchResultObject result) {
+	public PutInstruction(SearchResultObject result, int position) {
 		this.result = result;
+		this.position = position;
 	}
 
 	public void genericExecute(ModifiableSearchResultServiceProvider provider){
 		responseDom = provider.getResponseDom();
-		System.out.println("Putting to " + result.getOrder());
+		logger.info("Putting result to position " + position);
 	}
 	
 	public void execute(GoogleModifiableSearchResultServiceProvider provider) {
 		genericExecute(provider);
 		try {
 			Element ol = (Element)XPath.selectSingleNode(responseDom.getRootElement(), provider.getResultsParentElementPath());
-			ol.addContent(result.getOrder(), provider.puzzleResultElement(result));
+			ol.addContent(position, provider.puzzleResultElement(result));
 		} catch (Exception e) {
 			logger.error("Cannot put result", e);
 		}
@@ -41,7 +43,7 @@ public class PutInstruction implements Instruction {
 		genericExecute(provider);
 		try {
 			Element ol = (Element)XPath.selectSingleNode(responseDom.getRootElement(), provider.getResultsParentElementPath());
-			ol.addContent(result.getOrder() - 1, provider.puzzleResultElement(result)); //works better for Yahoo! with minus one 
+			ol.addContent(position - 1, provider.puzzleResultElement(result)); //works better for Yahoo! with minus one 
 		} catch (Exception e) {
 			logger.error("Cannot put result", e);
 		}
@@ -53,7 +55,7 @@ public class PutInstruction implements Instruction {
 		genericExecute(provider);
 		try {
 			Element ul = (Element)XPath.selectSingleNode(responseDom.getRootElement(), provider.getResultsParentElementPath());
-			ul.addContent(result.getOrder() - 1, provider.puzzleResultElement(result)); //works better for Bing with minus one
+			ul.addContent(position - 1, provider.puzzleResultElement(result)); //works better for Bing with minus one
 		} catch (Exception e) {
 			logger.error("Cannot put result", e);
 		}

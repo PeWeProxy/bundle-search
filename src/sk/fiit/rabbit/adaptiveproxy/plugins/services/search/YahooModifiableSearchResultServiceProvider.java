@@ -31,8 +31,8 @@ public class YahooModifiableSearchResultServiceProvider implements
 	}
 
 	@Override
-	public void putResult(SearchResultObject result) {
-		instructions.add(new PutInstruction(result));
+	public void putResult(SearchResultObject result, int position) {
+		instructions.add(new PutInstruction(result, position));
 	}
 
 	@Override
