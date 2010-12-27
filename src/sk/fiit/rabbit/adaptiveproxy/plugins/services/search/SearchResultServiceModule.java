@@ -56,48 +56,21 @@ public class SearchResultServiceModule implements ResponseServiceModule{
 			HtmlDomBuilderService htmlDomBuilderService = response.getServicesHandle().getService(HtmlDomBuilderService.class);
 			Document document;
 			String requestURI = response.getRequest().getRequestHeader().getRequestURI();
-			if(isGoogleSearchResult(requestURI)){
+			if(GoogleSearchResultServiceProvider.isApplicableUrl(requestURI)){
 				document = htmlDomBuilderService.getHTMLDom();
 				return (ResponseServiceProvider<Service>) new GoogleSearchResultServiceProvider(document);
 			}
-			if(isYahooSearchResult(requestURI)){
+			if(YahooSearchResultServiceProvider.isApplicableUrl(requestURI)){
 				document = htmlDomBuilderService.getHTMLDom();
 				return (ResponseServiceProvider<Service>) new YahooSearchResultServiceProvider(document);
 			}
-			if(isBingSearchResult(requestURI)){
+			if(BingSearchResultServiceProvider.isApplicableUrl(requestURI)){
 				document = htmlDomBuilderService.getHTMLDom();
 				return (ResponseServiceProvider<Service>) new BingSearchResultServiceProvider(document);
 			}		
 		}
 		
 		return null;
-	}
-	
-	private boolean isGoogleSearchResult(String requestURI) {
-		if(requestURI.matches("http://www\\.google\\.[a-z]{2,4}/search\\?.+")) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	private boolean isYahooSearchResult(String requestURI){
-		if(requestURI.matches("http://search\\.yahoo\\.com/search.+")) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	private boolean isBingSearchResult(String requestURI){
-		if(requestURI.matches("http://www\\.bing\\.com/search.+")) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 	
 }

@@ -119,6 +119,16 @@ public class BingSearchResultServiceProvider implements SearchResultService,
 		
 		return queryString;
 	}
+	
+	public static boolean isApplicableUrl(String requestURI){
+		if(requestURI.matches("http://www\\.bing\\.com/search\\?.+")) {
+			logger.info("A Bing search result page.");
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 }
 

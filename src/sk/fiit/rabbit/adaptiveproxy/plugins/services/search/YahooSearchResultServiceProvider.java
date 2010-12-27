@@ -120,5 +120,15 @@ public class YahooSearchResultServiceProvider implements SearchResultService,
 		return queryString;
 	}
 	
+	public static boolean isApplicableUrl(String requestURI){
+		if(requestURI.matches("http://search\\.yahoo\\.com/search.+")) {
+			logger.info("A Yahoo! search result page.");
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	
 }

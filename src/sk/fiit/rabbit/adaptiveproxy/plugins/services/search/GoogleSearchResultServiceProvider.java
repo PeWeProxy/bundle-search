@@ -3,6 +3,7 @@ package sk.fiit.rabbit.adaptiveproxy.plugins.services.search;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 
@@ -14,6 +15,8 @@ import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultServi
 public class GoogleSearchResultServiceProvider implements SearchResultService,
 		ResponseServiceProvider<SearchResultService> {
 
+	private static final Logger logger = Logger.getLogger(GoogleSearchResultServiceProvider.class);
+	
 	private Document document;
 
 	public GoogleSearchResultServiceProvider(Document document) {
@@ -132,5 +135,15 @@ public class GoogleSearchResultServiceProvider implements SearchResultService,
 
 		return elem.getValue().split("-")[0];
 	}
-
+	
+	public static boolean isApplicableUrl(String requestURI){
+		//TODO: refine
+		if(requestURI.matches("http://www\\.google\\.[a-z]{2,4}/search\\?.+")) {
+			logger.info("A Google search result page.");
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }
