@@ -12,9 +12,9 @@ import sk.fiit.peweproxy.plugins.services.ResponseServiceModule;
 import sk.fiit.peweproxy.plugins.services.ResponseServiceProvider;
 import sk.fiit.peweproxy.services.ProxyService;
 import sk.fiit.peweproxy.services.ServiceUnavailableException;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomBuilderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomReaderService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomWriterService;
 
 public class ModifiableSearchResultServiceModule implements ResponseServiceModule {
 
@@ -38,8 +38,8 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 	public void desiredResponseServices(
 			Set<Class<? extends ProxyService>> desiredServices,
 			ResponseHeader webRPHeader) {
-		desiredServices.add(HtmlDomBuilderService.class);
-		desiredServices.add(HtmlDomSenderService.class);
+		desiredServices.add(HtmlDomReaderService.class);
+		desiredServices.add(HtmlDomWriterService.class);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class ModifiableSearchResultServiceModule implements ResponseServiceModul
 			throws ServiceUnavailableException {
 		
 		if(ModifiableSearchResultService.class.equals(serviceClass)){
-			Document responseDom = response.getServicesHandle().getService(HtmlDomBuilderService.class).getHTMLDom();
+			Document responseDom = response.getServicesHandle().getService(HtmlDomReaderService.class).getHTMLDom();
 			String requestURI = response.getRequest().getRequestHeader().getRequestURI();
 			
 			if (GoogleSearchResultServiceProvider.isApplicableUrl(requestURI)) {

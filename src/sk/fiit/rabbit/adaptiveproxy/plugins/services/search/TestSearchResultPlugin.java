@@ -9,8 +9,8 @@ import sk.fiit.peweproxy.messages.ModifiableHttpResponse;
 import sk.fiit.peweproxy.plugins.PluginProperties;
 import sk.fiit.peweproxy.plugins.processing.ResponseProcessingPlugin;
 import sk.fiit.peweproxy.services.ProxyService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomBuilderService;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomSenderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomReaderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomWriterService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.ModifiableSearchResultService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultObject;
 
@@ -21,8 +21,8 @@ public class TestSearchResultPlugin implements ResponseProcessingPlugin {
 			Set<Class<? extends ProxyService>> desiredServices,
 			ResponseHeader webRPHeader) {
 		desiredServices.add(ModifiableSearchResultService.class);
-		desiredServices.add(HtmlDomBuilderService.class);
-		desiredServices.add(HtmlDomSenderService.class);
+		desiredServices.add(HtmlDomReaderService.class);
+		desiredServices.add(HtmlDomWriterService.class);
 	}
 
 	@Override

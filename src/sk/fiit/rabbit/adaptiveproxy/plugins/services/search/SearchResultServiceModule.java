@@ -12,7 +12,7 @@ import sk.fiit.peweproxy.plugins.services.ResponseServiceModule;
 import sk.fiit.peweproxy.plugins.services.ResponseServiceProvider;
 import sk.fiit.peweproxy.services.ProxyService;
 import sk.fiit.peweproxy.services.ServiceUnavailableException;
-import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomBuilderService;
+import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.HtmlDomReaderService;
 import sk.fiit.rabbit.adaptiveproxy.plugins.servicedefinitions.SearchResultService;
 
 public class SearchResultServiceModule implements ResponseServiceModule{
@@ -37,7 +37,7 @@ public class SearchResultServiceModule implements ResponseServiceModule{
 	public void desiredResponseServices(
 			Set<Class<? extends ProxyService>> desiredServices,
 			ResponseHeader webRPHeader) {
-		desiredServices.add(HtmlDomBuilderService.class);
+		desiredServices.add(HtmlDomReaderService.class);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class SearchResultServiceModule implements ResponseServiceModule{
 			throws ServiceUnavailableException {
 		
 		if(serviceClass.equals(SearchResultService.class)) {
-			HtmlDomBuilderService htmlDomBuilderService = response.getServicesHandle().getService(HtmlDomBuilderService.class);
+			HtmlDomReaderService htmlDomBuilderService = response.getServicesHandle().getService(HtmlDomReaderService.class);
 			Document document;
 			String requestURI = response.getRequest().getRequestHeader().getRequestURI();
 			if(GoogleSearchResultServiceProvider.isApplicableUrl(requestURI)){
