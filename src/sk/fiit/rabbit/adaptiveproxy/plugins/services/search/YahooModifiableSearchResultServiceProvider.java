@@ -90,6 +90,9 @@ public class YahooModifiableSearchResultServiceProvider implements
 		Element a_yschttl_spt = new Element("a");
 		a_yschttl_spt.setAttribute("class", "yschttl spt");
 		a_yschttl_spt.setAttribute("href", result.getUrl());
+		if("".equals(result.getOnClick())) {
+			a_yschttl_spt.setAttribute("onclick", result.getOnClick());
+		}
 		a_yschttl_spt.setText(result.getHeader());
 		h3.addContent(a_yschttl_spt);
 		
