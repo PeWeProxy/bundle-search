@@ -91,7 +91,7 @@ public class BingModifiableSearchResultServiceProvider implements
 		
 		Element a = new Element("a");
 		a.setAttribute("href", result.getUrl());
-		if("".equals(result.getOnClick())) {
+		if(!"".equals(result.getOnClick())) {
 			a.setAttribute("onclick", result.getOnClick());
 		}
 		a.setText(result.getHeader());

@@ -90,7 +90,7 @@ public class GoogleModifiableSearchResultServiceProvider implements ModifiableSe
 		
 		Element a_url = new Element("a");
 		a_url.setAttribute("href", result.getUrl());
-		if("".equals(result.getOnClick())) {
+		if(!"".equals(result.getOnClick())) {
 			a_url.setAttribute("onclick", result.getOnClick());
 		}
 		a_url.setText(result.getHeader());
