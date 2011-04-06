@@ -30,7 +30,7 @@ public class SearchResultObject
 
 	public SearchResultObject(String url, String header, String perex, int order)
 	{
-		this.url=url;
+		this.url=url.startsWith("http://") ? url : "http://" + url;
 		this.onClick = "";
 		this.header=header;
 		this.perex=perex;

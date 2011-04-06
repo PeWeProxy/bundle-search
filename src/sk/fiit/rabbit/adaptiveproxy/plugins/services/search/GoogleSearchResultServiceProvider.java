@@ -44,6 +44,7 @@ public class GoogleSearchResultServiceProvider implements SearchResultService,
 	}
 
 	@Override
+	//FIXME: parsing DOM instead of parsing string
 	public ArrayList<SearchResultObject> getSearchedData() {
 		boolean foundP = false;
 		boolean complete = false;
